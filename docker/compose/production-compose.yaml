@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  weblayer:
+    image: 350817478667.dkr.ecr.eu-west-1.amazonaws.com/weblayer:latest
+    ports:
+     - "9999:9999"     
+    links: 
+     - redis
+    depends_on: 
+     - redis  
+  workerlayer:
+    image: 350817478667.dkr.ecr.eu-west-1.amazonaws.com/workerlayer:latest
+    links: 
+     - redis
+    depends_on: 
+     - redis
+  redis:
+    image: 350817478667.dkr.ecr.eu-west-1.amazonaws.com/redis:latest
+     

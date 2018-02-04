@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#### go environment should be installed
+
+cd ../weblayer
+go get
+go build -o ../docker/weblayer/weblayer .
+cd ../workerlayer
+go get
+go build -o ../docker/workerlayer/workerlayer .
+
+cd ../docker
+
+#this is for start on local machine
+docker-compose -f compose/development-compose.yaml down
+docker-compose -f compose/development-compose.yaml build
+docker-compose -f compose/development-compose.yaml up
+
+##### example of starting on AWS - (no keys provided, nor docker repository acccess)
+##### in order for this deploy to work one should create repository on AWS, install ecs-cli, setup AWS access keys
+##### setup aws securty groups, and ACL for access to weblayer on docker server instance
+
+#get aws docker credentials (remove flag -e none - it's obsolete)
+#DOCKERLOGINCMD=`aws ecr get-login --region eu-west-1 | sed -e 's/-e none//'`
+#($DOCKERLOGINCMD)
+
+#docker build -t 350817478667.dkr.ecr.eu-west-1.amazonaws.com/weblayer:latest weblayer
+#docker push 350817478667.dkr.ecr.eu-west-1.amazonaws.com/weblayer:latest
+
+#docker build -t 350817478667.dkr.ecr.eu-west-1.amazonaws.com/workerlayer:latest workerlayer
+#docker push 350817478667.dkr.ecr.eu-west-1.amazonaws.com/workerlayer:latest
+
+#docker build -t 350817478667.dkr.ecr.eu-west-1.amazonaws.com/redis:latest redis
+#docker push 350817478667.dkr.ecr.eu-west-1.amazonaws.com/redis:latest
+
+
+# ecs-cli compose --file compose/production-compose.yml --project-name production stop
+# ecs-cli compose --file compose/production-compose.yml --project-name production up
+
+

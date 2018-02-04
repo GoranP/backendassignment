@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  weblayer:
+    build: ../weblayer
+    ports:
+     - "9999:9999"     
+    links: 
+     - redis
+    depends_on: 
+     - redis  
+  workerlayer:
+    build: ../workerlayer
+    links: 
+     - redis
+    depends_on: 
+     - redis
+  redis:
+    build: ../redis
+     
