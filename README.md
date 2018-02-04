@@ -53,7 +53,7 @@ Worklayer starts separate goroutine per client 'pushKeyChanges' that subscribes 
 
 Both components are completely independent and horizontally scalable. Hardpoint for both components is Redis server.
 
-Everything is dockerized and to start the system execute docker/dockerbuild shell script.
+Everything is dockerized and to start the system execute docker/dockerbuild shell script. Script shold be started from docker directory like `./dockerbuild`
 
 In dockerbuild script is commented code as an example of docker push to AWS. Read more info how to test deploy in the script itself.
 
